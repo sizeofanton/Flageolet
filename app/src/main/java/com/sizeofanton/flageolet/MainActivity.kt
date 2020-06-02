@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val PERMISSION_CODE = 101
-private const val START_RECORDING_DELAY = 800
+private const val START_RECORDING_DELAY = 1000
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -62,20 +62,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             viewModel.stopRecording()
             vibratePhone()
             playSound(R.raw.success)
+            noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
             viewModel.startRecording(START_RECORDING_DELAY)
         }
         when (position) {
             in 50..Int.MAX_VALUE -> {
                 noteDeviationView.setPosition(50)
-                noteDeviationView.setPointerColor(255, 175, 37,30)
+                noteDeviationView.setPointerColor(getColor(R.color.pointerBad))
             }
             in Int.MIN_VALUE..-50 -> {
                 noteDeviationView.setPosition(-50)
-                noteDeviationView.setPointerColor(255, 175, 37,30)
+                noteDeviationView.setPointerColor(getColor(R.color.pointerBad))
             }
             else -> {
                 noteDeviationView.setPosition(position)
-                noteDeviationView.setPointerColor(255, 151, 151,151)
+                noteDeviationView.setPointerColor(getColor(R.color.pointerNeutral))
             }
         }
     }
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val position = viewModel.getPosition()
 
         note.observe(this, Observer<String> { tvNote.text = it })
-        freq.observe(this, Observer<Double>{ tvFreq.text = "${String.format("%5.2f", it)} Hz" })
+        freq.observe(this, Observer<Double>{ tvFreq.text = getString(R.string.hz_string, it)/*"${String.format("%5.2f", it)} Hz"*/ })
         position.observe(this, Observer<Int> { moveNoteView(it) })
     }
 
