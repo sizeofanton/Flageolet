@@ -67,6 +67,11 @@ class NoteDeviationView @JvmOverloads constructor(context: Context, attrs: Attri
         invalidate()
     }
 
+    fun setPointerColor(color: Int) {
+        pointerPaint.color = color
+        invalidate()
+    }
+
     override fun onDraw(canvas: Canvas) {
         primaryLineWidth = height / 107.5f
         secondaryLineWidth = height / 215.0f
