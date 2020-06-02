@@ -58,13 +58,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun moveNoteView(position: Int) {
         noteDeviationView.setPointerVisibility(true)
-        if (position in -1..1) {
-            viewModel.stopRecording()
-            vibratePhone()
-            playSound(R.raw.success)
-            noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
-            viewModel.startRecording(START_RECORDING_DELAY)
-        }
         when (position) {
             in 50..Int.MAX_VALUE -> {
                 noteDeviationView.setPosition(50)
@@ -73,6 +66,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             in Int.MIN_VALUE..-50 -> {
                 noteDeviationView.setPosition(-50)
                 noteDeviationView.setPointerColor(getColor(R.color.pointerBad))
+            }
+            in -1..1 -> {
+                viewModel.stopRecording()
+                vibratePhone()
+                playSound(R.raw.success)
+                noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
+                viewModel.startRecording(START_RECORDING_DELAY)
             }
             else -> {
                 noteDeviationView.setPosition(position)
