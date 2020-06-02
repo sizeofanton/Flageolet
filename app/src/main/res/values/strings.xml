@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Flageolet</string>
+
+    <string-array name="notes_set">
+        <item>All Notes</item>
+        <item>Standard Tuning (EBGDAE)</item>
+        <item>Half Step Down (E♭B♭G♭D♭A♭E♭)</item>
+        <item>Full Step Down (DAFDGC)</item>
+        <item>1.5 Steps Down (D♭A♭EBG♭D♭)</item>
+        <item>Two Steps Down (CGE♭B♭FC)</item>
+        <item>Baritone (BF#DAEB)</item>
+        <item>Drop D (EBGDAD)</item>
+        <item>Drop C#/Db (D#A#F#C#G#C#)</item>
+        <item>Drop C (DAFCGC)</item>
+    </string-array>
+
+    <string name="hz_string">$1%5.2f Hz</string>
+
+
+</resources>
