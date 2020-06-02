@@ -14,7 +14,7 @@
         <item>Drop C (DAFCGC)</item>
     </string-array>
 
-    <string name="hz_string">$1%5.2f Hz</string>
+    <string name="hz_string">%1$5.2f Hz</string>
 
 
 </resources>
