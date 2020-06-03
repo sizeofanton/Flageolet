@@ -41,7 +41,7 @@ class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent  {
         this.position.postValue(position)
     }
 
-    override fun startRecording(delay: Int) {
+    override fun startRecording(delay: Long) {
         model.startRecording(delay)
     }
 

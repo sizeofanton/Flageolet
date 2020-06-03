@@ -36,7 +36,7 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
     private var currentString: Int = -1
 
 
-    override fun startRecording(delay: Int) {
+    override fun startRecording(delay: Long) {
         Timber.d("Start recording...")
         if (this::audioRecord.isInitialized) audioRecord.release()
         audioRecord = AudioRecord(
@@ -47,7 +47,7 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
             minSize
         )
         audioRecord.startRecording()
-        recordTimer = fixedRateTimer("recordTimer", false, delay.toLong(), 100) {
+        recordTimer = fixedRateTimer("recordTimer", false, delay, 100) {
             record()
         }
     }

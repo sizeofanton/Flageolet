@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.Observer
@@ -16,11 +17,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val PERMISSION_CODE = 101
-private const val START_RECORDING_DELAY = 1000
+private const val START_RECORDING_DELAY = 1000L
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val viewModel: MainViewModel by viewModel()
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +74,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 vibratePhone()
                 playSound(R.raw.success)
                 noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
+                tvNote.setTextColor(getColor(R.color.pointerGood))
+                handler.postDelayed({
+                    tvNote.setTextColor(getColor(R.color.colorAccent))
+                }, START_RECORDING_DELAY)
                 viewModel.startRecording(START_RECORDING_DELAY)
             }
             else -> {

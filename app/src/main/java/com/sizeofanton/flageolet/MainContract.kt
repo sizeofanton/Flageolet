@@ -11,7 +11,7 @@ interface MainContract {
         fun updateDecibel(decibel: Double)
         fun updateNote(note: String)
         fun updatePosition(position: Int)
-        fun startRecording(delay: Int)
+        fun startRecording(delay: Long)
         fun stopRecording()
         fun getFrequency(): LiveData<Double>
         fun getAmplitude(): LiveData<Int>
@@ -27,7 +27,7 @@ interface MainContract {
     }
 
     interface Model {
-        fun startRecording(delay: Int)
+        fun startRecording(delay: Long)
         fun stopRecording()
         fun setWorkMode(mode: MainModel.WorkMode)
         fun setSystem(frequencies: DoubleArray, names: Array<String>)
