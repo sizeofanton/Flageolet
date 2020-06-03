@@ -42,7 +42,22 @@ object GuitarFrequencies {
     private val FREQUENCIES_BEADFsB =
         doubleArrayOf(246.94, 164.81, 110.0, 73.42, 46.25, 30.87)
     private val NAMES_BEADFsB =
-        arrayOf("B", "E", "A", "D", "F#", "B")
+        arrayOf("B ", "E ", "A ", "D ", "F#", "B ")
+
+    private val FREQUENCIES_EBGDAD =
+        doubleArrayOf(329.63, 246.94, 196.00, 146.83, 110.00, 73.42)
+    private val NAMES_EBGDAD =
+        arrayOf("E ", "B ", "G ", "D ", "A ", "D ")
+
+    private val FREQUENCIES_DsAsFsCsBsCs =
+        doubleArrayOf(311.13, 233.08, 185.00, 138.59, 103.83, 69.30)
+    private val NAMES_DsAsFsCsBsCs =
+        arrayOf("D#", "A#", "F#", "C#", "G#", "C#")
+
+    private val FREQUENCIES_DAFCGC =
+        doubleArrayOf(293.66, 220.00, 174.61, 130.81, 98.00, 65.41)
+    private val NAMES_DAFCGC =
+        arrayOf("D ", "A ", "F ", "C ", "G ", "C ")
 
     val frequencies: HashMap<Int, Pair<DoubleArray, Array<String>>> = HashMap()
     init {
@@ -53,5 +68,8 @@ object GuitarFrequencies {
         frequencies[4] = Pair(FREQUENCIES_DbAbEBGbDb, NAMES_DbAbEBGbDb)
         frequencies[5] = Pair(FREQUENCIES_CGEbBbFC, NAMES_CGEbBbFC)
         frequencies[6] = Pair(FREQUENCIES_BEADFsB, NAMES_BEADFsB)
+        frequencies[7] = Pair(FREQUENCIES_EBGDAD, NAMES_EBGDAD)
+        frequencies[8] = Pair(FREQUENCIES_DsAsFsCsBsCs, NAMES_DsAsFsCsBsCs)
+        frequencies[9] = Pair(FREQUENCIES_DAFCGC, NAMES_DAFCGC)
     }
 }
