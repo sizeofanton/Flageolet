@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#F8F3F3"
-            android:text="E"
+            android:text="E "
             android:textColor="#FFFEFE" />
 
         <RadioButton
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#F8F3F3"
-            android:text="B"
+            android:text="B "
             android:textColor="#FFFEFE" />
 
         <RadioButton
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#F8F3F3"
-            android:text="G"
+            android:text="G "
             android:textColor="#FFFEFE" />
 
         <RadioButton
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#F8F3F3"
-            android:text="D"
+            android:text="D "
             android:textColor="#FFFEFE" />
 
         <RadioButton
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#F8F3F3"
-            android:text="A"
+            android:text="A "
             android:textColor="#FFFEFE" />
 
         <RadioButton
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="#F8F3F3"
-            android:text="E"
+            android:text="E "
             android:textColor="#FFFEFE" />
     </RadioGroup>
 
