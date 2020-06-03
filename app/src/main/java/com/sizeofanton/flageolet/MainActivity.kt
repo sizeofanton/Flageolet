@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val PERMISSION_CODE = 101
-private const val START_RECORDING_DELAY = 1000L
+private const val START_RECORDING_DELAY = 1500L
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 

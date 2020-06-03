@@ -21,7 +21,7 @@ class MainModelMock(
     private var workMode: MainModel.WorkMode = MainModel.WorkMode.ALL_NOTES
     private var currentString: Int = -1
 
-    override fun startRecording(delay: Int) {
+    override fun startRecording(delay: Long) {
         recordTimer = fixedRateTimer("recordTimer", false, delay.toLong(), 100) {
             record()
         }
