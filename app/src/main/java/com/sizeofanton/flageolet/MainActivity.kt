@@ -75,8 +75,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 playSound(R.raw.success)
                 noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
                 tvNote.setTextColor(getColor(R.color.pointerGood))
+                tvFreq.setTextColor(getColor(R.color.pointerGood))
                 handler.postDelayed({
                     tvNote.setTextColor(getColor(R.color.colorAccent))
+                    tvFreq.setTextColor(getColor(R.color.colorAccent))
                 }, START_RECORDING_DELAY)
                 viewModel.startRecording(START_RECORDING_DELAY)
             }
