@@ -24,10 +24,16 @@ object GuitarFrequencies {
     private val NAMES_EbAbDbGbBbEb =
         arrayOf("E♭", "B♭ ", "G♭", "D♭", "A♭", "E♭")
 
+    private val FREQUENCIES_DAFCGD =
+        doubleArrayOf(293.66, 220.00, 174.61, 130.81, 98.00, 73.42)
+    private val NAMES_DAFCGD =
+        arrayOf("D ", "A ", "F ", "C ", "G ", "D ")
+
     val frequencies: HashMap<Int, Pair<DoubleArray, Array<String>>> = HashMap()
     init {
         frequencies[0] = Pair(FREQUENCIES, NAMES)
         frequencies[1] = Pair(FREQUENCIES_EADGBE, NAMES_EADGBE)
         frequencies[2] = Pair(FREQUENCIES_EbAbDbGbBbEb, NAMES_EbAbDbGbBbEb)
+        frequencies[3] = Pair(FREQUENCIES_DAFCGD, NAMES_DAFCGD)
     }
 }
