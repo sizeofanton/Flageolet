@@ -17,7 +17,7 @@ object GuitarFrequencies {
     private val FREQUENCIES_EADGBE =
         doubleArrayOf(329.63, 246.94, 196.00, 146.83, 110.00, 82.41)
     private val NAMES_EADGBE =
-        arrayOf("E", "B", "G", "D", "A", "E")
+        arrayOf("E ", "B ", "G ", "D ", "A ", "E ")
 
     private val FREQUENCIES_EbAbDbGbBbEb =
         doubleArrayOf(311.13, 233.08, 185.00, 138.56, 103.83, 77.83)

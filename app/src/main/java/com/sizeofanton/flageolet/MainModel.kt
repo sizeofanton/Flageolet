@@ -29,8 +29,12 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
     private val noteStep = 1.059461
     private lateinit var recordTimer: Timer
 
-    private var frequencies = GuitarFrequencies.frequencies[0]?.first!!
-    private var names = GuitarFrequencies.frequencies[0]?.second!!
+    private val frequencies = GuitarFrequencies.frequencies[0]?.first!!
+    private val names = GuitarFrequencies.frequencies[0]?.second!!
+
+    private var frequencies_specific
+            = GuitarFrequencies.frequencies[0]?.first!!
+
 
     private var workMode: WorkMode = WorkMode.ALL_NOTES
     private var currentString: Int = -1
@@ -84,13 +88,13 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
             }
 
             WorkMode.SPECIFIC_NOTE -> {
-                val closest = frequencies[currentString - 1]
-                val note = names[currentString - 1]
+                val closest = getClosestNote(freq)
+                val note = names[closest]
 
-                if (db > - 12 && amp > 1200 && freq > 60) {
+                if (db > - 18 && amp > 300 && freq > 60) {
                     viewModel.updateFrequency(freq)
                     viewModel.updateNote(note)
-                    calculatePosition(closest, freq).also {
+                    calculatePosition(frequencies_specific[currentString-1], freq).also {
                         viewModel.updatePosition(it)
                     }
                 }
@@ -151,8 +155,7 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
     }
 
     override fun setSystem(frequencies: DoubleArray, names: Array<String>) {
-        this.frequencies = frequencies
-        this.names = names
+        this.frequencies_specific = frequencies
     }
 
     override fun setCurrentString(string: Int) {

@@ -121,7 +121,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     rgStrings.visibility = View.VISIBLE
                     val string = 1
                     rbString1.isChecked = true
-                    tvNote.text = GuitarFrequencies.frequencies[position]!!.second[string - 1]
                     viewModel.setConfig(
                         MainModel.WorkMode.SPECIFIC_NOTE,
                         GuitarFrequencies.frequencies[position]!!.first,
@@ -146,25 +145,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private fun initRadioGroupNotes() {
         rgStrings.setOnCheckedChangeListener { _, i ->
             when (i) {
-                rbString1.id -> tvNote.text = setStringConfig(1)
-                rbString2.id -> tvNote.text = setStringConfig(2)
-                rbString3.id -> tvNote.text = setStringConfig(3)
-                rbString4.id -> tvNote.text = setStringConfig(4)
-                rbString5.id -> tvNote.text = setStringConfig(5)
-                rbString6.id -> tvNote.text = setStringConfig(6)
+                rbString1.id -> setStringConfig(1)
+                rbString2.id -> setStringConfig(2)
+                rbString3.id -> setStringConfig(3)
+                rbString4.id -> setStringConfig(4)
+                rbString5.id -> setStringConfig(5)
+                rbString6.id -> setStringConfig(6)
             }
         }
     }
 
-    private fun setStringConfig(i: Int): String {
+    private fun setStringConfig(i: Int) {
         viewModel.setConfig(
             MainModel.WorkMode.SPECIFIC_NOTE,
             GuitarFrequencies.frequencies[spinnerNotes.selectedItemPosition]!!.first,
             GuitarFrequencies.frequencies[spinnerNotes.selectedItemPosition]!!.second,
             i
         )
-        return GuitarFrequencies
-            .frequencies[spinnerNotes.selectedItemId.toInt()]!!
-            .second[i - 1]
     }
 }
