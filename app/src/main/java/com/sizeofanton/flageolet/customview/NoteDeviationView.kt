@@ -47,20 +47,27 @@ class NoteDeviationView @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     private var pointerPosition = 0.0f
+    private var pointerPositionValue = 0
     private var pointerVisible = true
 
     fun setPointerVisibility(isVisible: Boolean) {
         pointerVisible = isVisible
     }
 
+    fun isPointerVisible() = pointerVisible
+
     fun setPosition(pos: Int) {
         if (pos !in -50..50) throw Exception("WrongIntervalException")
+        pointerPositionValue = pos
         pointerPosition = when (pos) {
             0 -> 11.0f / 22.0f
             else -> (11.0f / 22.0f) - (10.0f / 22.0f * pos / 50.0f)
         }
         invalidate()
     }
+    fun getPosition() = pointerPositionValue
+
+
 
     fun setPointerColor(alpha: Int, r: Int, g: Int, b: Int) {
         pointerPaint.color = Color.argb(alpha, r, g, b)
