@@ -5,7 +5,6 @@ import com.sizeofanton.flageolet.mock.MainModelMock
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule

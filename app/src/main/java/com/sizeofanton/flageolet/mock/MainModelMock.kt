@@ -22,7 +22,7 @@ class MainModelMock(
     private var currentString: Int = -1
 
     override fun startRecording(delay: Long) {
-        recordTimer = fixedRateTimer("recordTimer", false, delay.toLong(), 100) {
+        recordTimer = fixedRateTimer("recordTimer", false, delay, 100) {
             record()
         }
     }

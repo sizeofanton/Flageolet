@@ -6,13 +6,21 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
+import com.sizeofanton.flageolet.customview.NoteDeviationView
+import com.sizeofanton.flageolet.di.appModule
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.dsl.koinApplication
+import org.koin.dsl.module
 import org.koin.test.KoinTest
+import org.koin.test.mock.declareMock
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -22,6 +30,7 @@ import org.robolectric.annotation.Config
 class MainActivityTestRobolectric: KoinTest {
 
     private lateinit var activity: MainActivity
+
 
     @Before
     fun test_setUp() {
@@ -34,6 +43,32 @@ class MainActivityTestRobolectric: KoinTest {
         val hz = activity.findViewById<TextView>(R.id.tvFreq)
         assertEquals("?", note.text.toString())
         assertEquals("0 Hz", hz.text.toString())
+    }
+
+    @Test
+    fun test_pointerInvisible() {
+        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        assertEquals(noteDeviationView.isPointerVisible(), false)
+    }
+
+    @Test
+    fun test_pointerVisible() {
+        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        noteDeviationView.setPointerVisibility(true)
+        assertEquals(noteDeviationView.isPointerVisible(), true)
+    }
+
+    @Test
+    fun test_basePosition() {
+        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        assertEquals(noteDeviationView.getPosition(), 0)
+    }
+
+    @Test
+    fun test_movePosition() {
+        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        noteDeviationView.setPosition(20)
+        assertEquals(20, noteDeviationView.getPosition())
     }
 
     @Test
