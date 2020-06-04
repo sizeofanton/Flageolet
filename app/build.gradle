@@ -26,6 +26,12 @@ android {
         }
     }
 
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
 }
 
 dependencies {
@@ -62,4 +68,6 @@ dependencies {
     implementation "org.koin:koin-androidx-fragment:$koin_version"
     implementation "org.koin:koin-androidx-ext:$koin_version"
 
+    // Robolectric
+    testImplementation 'org.robolectric:robolectric:4.3'
 }
