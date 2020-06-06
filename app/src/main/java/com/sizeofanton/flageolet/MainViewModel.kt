@@ -1,15 +1,13 @@
 package com.sizeofanton.flageolet
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 
-class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent  {
+class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent, LifecycleObserver  {
 
     private val model: MainContract.Model by inject { parametersOf(this) }
     private val frequency: MutableLiveData<Double> = MutableLiveData()
@@ -41,10 +39,12 @@ class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent  {
         this.position.postValue(position)
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     override fun startRecording(delay: Long) {
         model.startRecording(delay)
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     override fun stopRecording() {
         model.stopRecording()
     }

@@ -26,8 +26,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         if (!checkMicroPermission()) requestMicroPermission()
         else viewModel.startRecording(0)
+
+        lifecycle.addObserver(viewModel)
+
         initUI()
     }
 
