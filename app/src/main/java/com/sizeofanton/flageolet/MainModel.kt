@@ -3,10 +3,7 @@ package com.sizeofanton.flageolet
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import com.sizeofanton.flageolet.utils.AudioCalculator
-import com.sizeofanton.flageolet.utils.GuitarFrequencies
-import com.sizeofanton.flageolet.utils.PCMArrayConverter
-import com.sizeofanton.flageolet.utils.YINPitchDetector
+import com.sizeofanton.flageolet.utils.*
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
@@ -15,6 +12,10 @@ import timber.log.Timber
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.abs
+
+private const val FREQ_THRESHOLD = 60
+private const val AMP_THRESHOLD = 300
+private const val DECIBEL_THRESHOLD = -18
 
 class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Model, KoinComponent {
 
@@ -26,7 +27,7 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
         AudioFormat.CHANNEL_IN_MONO,
         AudioFormat.ENCODING_PCM_16BIT
     )
-    private val noteStep = 1.059461
+    private val noteCalculator:NoteCalculator by inject()
     private lateinit var recordTimer: Timer
 
     private val frequencies = GuitarFrequencies.frequencies[0]?.first!!
@@ -51,7 +52,7 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
             minSize
         )
         audioRecord.startRecording()
-        recordTimer = fixedRateTimer("recordTimer", false, delay, 100) {
+        recordTimer = fixedRateTimer("recordTimer", false, delay, 50) {
             record()
         }
     }
@@ -63,40 +64,39 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
     }
 
     private fun record() {
-        Timber.d("Thread name - ${Thread.currentThread().id}")
         val (freq, amp, db) = getInput()
 
         Timber.d("Freq: $freq")
         Timber.d("Amp: $amp")
         Timber.d("Decibel: $db")
-        //Timber.d("Recording status: ${audioRecord.recordingState == AudioRecord.RECORDSTATE_RECORDING}")
 
         when (workMode) {
             WorkMode.ALL_NOTES -> {
-                val closest = getClosestNote(freq)
+                val closest = noteCalculator.getClosestNote(freq, frequencies)
                 val note = names[closest]
 
-                if (db > -18 && amp > 300 && freq > 60) {
+                if (db > DECIBEL_THRESHOLD && amp > AMP_THRESHOLD && freq > FREQ_THRESHOLD) {
                     viewModel.updateFrequency(freq)
                     viewModel.updateAmplitude(amp)
                     viewModel.updateDecibel(db)
                     viewModel.updateNote(note)
-                    calculatePosition(frequencies[closest], freq).also {
+                    noteCalculator.calculateDeviation(frequencies[closest], freq).also {
                         viewModel.updatePosition(it)
                     }
                 }
             }
 
             WorkMode.SPECIFIC_NOTE -> {
-                val closest = getClosestNote(freq)
+                val closest = noteCalculator.getClosestNote(freq, frequencies)
                 val note = names[closest]
 
-                if (db > - 18 && amp > 300 && freq > 60) {
+                if (db > DECIBEL_THRESHOLD && amp > AMP_THRESHOLD && freq > FREQ_THRESHOLD) {
                     viewModel.updateFrequency(freq)
                     viewModel.updateNote(note)
-                    calculatePosition(frequencies_specific[currentString-1], freq).also {
-                        viewModel.updatePosition(it)
-                    }
+                    noteCalculator.calculateDeviation(frequencies_specific[currentString-1], freq)
+                        .also {
+                            viewModel.updatePosition(it)
+                        }
                 }
             }
         }
@@ -124,25 +124,6 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
 
             return Triple(freq, amp, db)
         } else Triple(0.0, 0, 0.0)
-    }
-
-    private fun getClosestNote(hz: Double): Int {
-        var minDist = Double.MAX_VALUE
-        var minFreq = -1
-        for (i in frequencies.indices) {
-            val dist = Math.abs(frequencies[i] - hz)
-            if (dist < minDist) {
-                minDist = dist
-                minFreq = i
-            }
-        }
-        return minFreq
-    }
-
-    private fun calculatePosition(requiredHz: Double, currentHz: Double): Int {
-        val sign = (requiredHz - currentHz) < 0
-        val next = if (sign) requiredHz * noteStep else requiredHz / noteStep
-        return (abs(currentHz - requiredHz) * 100 / abs(requiredHz - next)).toInt() * if (sign) 1 else -1
     }
 
     enum class WorkMode {
