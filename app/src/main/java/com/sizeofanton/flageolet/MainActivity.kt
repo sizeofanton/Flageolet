@@ -3,7 +3,6 @@ package com.sizeofanton.flageolet
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -73,6 +72,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 viewModel.stopRecording()
                 vibratePhone()
                 playSound(R.raw.success)
+                noteDeviationView.setPosition(position)
                 noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
                 tvNote.setTextColor(getColor(R.color.pointerGood))
                 tvFreq.setTextColor(getColor(R.color.pointerGood))
