@@ -12,9 +12,8 @@
 
     <com.sizeofanton.flageolet.customview.NoteDeviationView
         android:id="@+id/noteDeviationView"
-        android:layout_width="414dp"
-        android:layout_height="155dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,16 +21,16 @@
 
     <TextView
         android:id="@+id/tvNote"
-        android:layout_width="31dp"
-        android:layout_height="98dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-thin"
         android:text="?"
         android:textColor="#FFFFFF"
         android:textSize="72sp"
-        app:layout_constraintBottom_toBottomOf="@+id/noteDeviationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/noteDeviationView"
-        app:layout_constraintTop_toTopOf="@+id/noteDeviationView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteDeviationView" />
 
     <Spinner
         android:id="@+id/spinnerNotes"
@@ -48,26 +47,25 @@
     <TextView
         android:id="@+id/tvFreq"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
         android:text="0 Hz"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/rgStrings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/noteDeviationView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNote" />
 
     <RadioGroup
         android:id="@+id/rgStrings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerNotes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noteDeviationView">
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/rbString6"
