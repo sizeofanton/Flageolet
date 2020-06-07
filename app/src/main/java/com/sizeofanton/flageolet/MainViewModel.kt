@@ -7,7 +7,7 @@ import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 
-class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent, LifecycleObserver  {
+class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent  {
 
     private val model: MainContract.Model by inject { parametersOf(this) }
     private val frequency: MutableLiveData<Double> = MutableLiveData()
@@ -39,12 +39,15 @@ class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent, Lifecyc
         this.position.postValue(position)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     override fun startRecording(delay: Long) {
         model.startRecording(delay)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+
+    override fun startRecording() {
+        model.startRecording(0L)
+    }
+
     override fun stopRecording() {
         model.stopRecording()
     }

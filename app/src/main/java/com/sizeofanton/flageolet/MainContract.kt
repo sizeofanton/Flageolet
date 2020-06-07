@@ -1,5 +1,6 @@
 package com.sizeofanton.flageolet
 
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 
 interface MainContract {
@@ -11,6 +12,7 @@ interface MainContract {
         fun updateDecibel(decibel: Double)
         fun updateNote(note: String)
         fun updatePosition(position: Int)
+        fun startRecording()
         fun startRecording(delay: Long)
         fun stopRecording()
         fun getFrequency(): LiveData<Double>

@@ -28,9 +28,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setContentView(R.layout.activity_main)
 
         if (!checkMicroPermission()) requestMicroPermission()
-        else viewModel.startRecording(0)
-
-        lifecycle.addObserver(viewModel)
+        else viewModel.startRecording()
 
         initUI()
     }
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty()
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    viewModel.startRecording(0)
+                    viewModel.startRecording()
                 } else {
                     finish()
                 }
