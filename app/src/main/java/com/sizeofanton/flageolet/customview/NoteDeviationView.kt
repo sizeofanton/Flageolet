@@ -65,7 +65,7 @@ class NoteDeviationView @JvmOverloads constructor(
 
     private var pointerPosition = 0.0f
     private var pointerPositionValue = 0
-    private var pointerVisible = true
+    private var pointerVisible = false
 
     fun setPointerVisibility(isVisible: Boolean) {
         pointerVisible = isVisible
@@ -76,9 +76,16 @@ class NoteDeviationView @JvmOverloads constructor(
     fun setPosition(pos: Int) {
         if (pos !in -50..50) throw Exception("WrongIntervalException")
         pointerPositionValue = pos
-        pointerPosition = when (pos) {
-            0 -> 11.0f / 22.0f
-            else -> (11.0f / 22.0f) - (10.0f / 22.0f * pos / 50.0f)
+        if (orientation == 0) {
+            pointerPosition = when (pos) {
+                0 -> 11.0f / 22.0f
+                else -> (11.0f / 22.0f) - (10.0f / 22.0f * pos / 50.0f)
+            }
+        } else {
+            pointerPosition = when (pos) {
+                0 -> 11.0f / 22.0f
+                else -> (11.0f / 22.0f) + (10.0f / 22.0f * pos / 50.0f)
+            }
         }
         invalidate()
     }
@@ -317,7 +324,7 @@ class NoteDeviationView @JvmOverloads constructor(
     private fun drawTextH(canvas: Canvas) {
         fontPaint.textSize = height / 21f
         for (i in labelsH.indices)
-            canvas.drawText(labels[i], (0.75f + 2f*i) * width / 22, 10f * height / 11, fontPaint)
+            canvas.drawText(labelsH[i], (0.75f + 2f*i) * width / 22, 10f * height / 11, fontPaint)
     }
 
     private fun drawPointer(canvas: Canvas) {
