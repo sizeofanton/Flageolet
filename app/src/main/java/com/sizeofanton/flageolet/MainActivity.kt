@@ -2,11 +2,14 @@ package com.sizeofanton.flageolet
 
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.PowerManager
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import com.sizeofanton.flageolet.extensions.playSound
@@ -22,15 +25,29 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val viewModel: MainViewModel by viewModel()
     private val handler = Handler()
-
+    private val wakeLock by lazy {
+        (getSystemService(Context.POWER_SERVICE) as PowerManager)
+            .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Flageolet::RecordingWakeLock")
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         if (!checkMicroPermission()) requestMicroPermission()
         else viewModel.startRecording()
 
         initUI()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        wakeLock.acquire()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        wakeLock.release()
     }
 
     private fun checkMicroPermission(): Boolean  =
@@ -165,4 +182,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             i
         )
     }
+
+
 }
