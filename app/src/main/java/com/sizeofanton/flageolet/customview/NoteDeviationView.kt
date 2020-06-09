@@ -119,7 +119,6 @@ class NoteDeviationView @JvmOverloads constructor(
             drawCentralSectorH(canvas)
             drawMarksH(canvas)
             drawTextH(canvas)
-            drawPointerH(canvas)
             if (pointerVisible) drawPointerH(canvas)
         }
 
