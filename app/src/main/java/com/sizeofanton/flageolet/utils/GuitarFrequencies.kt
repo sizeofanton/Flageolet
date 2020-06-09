@@ -39,11 +39,6 @@ object GuitarFrequencies {
     private val NAMES_CGEbBbFC =
         arrayOf("C ", "G ", "E♭", "B♭", "F ", "C ")
 
-    private val FREQUENCIES_BEADFsB =
-        doubleArrayOf(246.94, 164.81, 110.0, 73.42, 46.25, 30.87)
-    private val NAMES_BEADFsB =
-        arrayOf("B ", "E ", "A ", "D ", "F#", "B ")
-
     private val FREQUENCIES_EBGDAD =
         doubleArrayOf(329.63, 246.94, 196.00, 146.83, 110.00, 73.42)
     private val NAMES_EBGDAD =
@@ -67,9 +62,8 @@ object GuitarFrequencies {
         frequencies[3] = Pair(FREQUENCIES_DAFCGD, NAMES_DAFCGD)
         frequencies[4] = Pair(FREQUENCIES_DbAbEBGbDb, NAMES_DbAbEBGbDb)
         frequencies[5] = Pair(FREQUENCIES_CGEbBbFC, NAMES_CGEbBbFC)
-        frequencies[6] = Pair(FREQUENCIES_BEADFsB, NAMES_BEADFsB)
-        frequencies[7] = Pair(FREQUENCIES_EBGDAD, NAMES_EBGDAD)
-        frequencies[8] = Pair(FREQUENCIES_DsAsFsCsBsCs, NAMES_DsAsFsCsBsCs)
-        frequencies[9] = Pair(FREQUENCIES_DAFCGC, NAMES_DAFCGC)
+        frequencies[6] = Pair(FREQUENCIES_EBGDAD, NAMES_EBGDAD)
+        frequencies[7] = Pair(FREQUENCIES_DsAsFsCsBsCs, NAMES_DsAsFsCsBsCs)
+        frequencies[8] = Pair(FREQUENCIES_DAFCGC, NAMES_DAFCGC)
     }
 }
