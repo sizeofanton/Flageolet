@@ -26,7 +26,7 @@ class NoteDeviationView @JvmOverloads constructor(
 
     private val labels = arrayOf("+50", "+40", "+30", "+20", "+10", "  0",
                                            "-10", "-20", "-30", "-40", "-50")
-    private val labelsH = arrayOf("-50", "-40", "-30", "-20", "-10", "  0",
+    private val labelsHorizontal = arrayOf("-50", "-40", "-30", "-20", "-10", "  0",
                                               "+10", "+20", "+30", "+40", "+50")
 
     private var primaryLineWidth = 20.0f
@@ -114,12 +114,12 @@ class NoteDeviationView @JvmOverloads constructor(
             drawText(canvas)
             if (pointerVisible) drawPointer(canvas)
         } else {
-            drawOutlineH(canvas)
-            drawFrontierSectorH(canvas)
-            drawCentralSectorH(canvas)
-            drawMarksH(canvas)
-            drawTextH(canvas)
-            if (pointerVisible) drawPointerH(canvas)
+            drawOutlineHorizontal(canvas)
+            drawFrontierSectorHorizontal(canvas)
+            drawCentralSectorHorizontal(canvas)
+            drawMarksHorizontal(canvas)
+            drawTextHorizontal(canvas)
+            if (pointerVisible) drawPointerHorizontal(canvas)
         }
 
         super.onDraw(canvas)
@@ -145,7 +145,7 @@ class NoteDeviationView @JvmOverloads constructor(
         canvas.drawRect(rect, outlinePaint)
     }
 
-    private fun drawOutlineH(canvas: Canvas) {
+    private fun drawOutlineHorizontal(canvas: Canvas) {
         val rect = Rect(
             (width.toFloat() / 22).toInt(),
             (height.toFloat() / 11).toInt(),
@@ -165,7 +165,7 @@ class NoteDeviationView @JvmOverloads constructor(
         )
     }
 
-    private fun drawCentralSectorH(canvas: Canvas) {
+    private fun drawCentralSectorHorizontal(canvas: Canvas) {
         canvas.drawLine(
             11 * width.toFloat() / 22,
             height.toFloat() / 11,
@@ -185,7 +185,7 @@ class NoteDeviationView @JvmOverloads constructor(
         canvas.drawRect(rect, frontierPaint)
     }
 
-    private fun drawFrontierSectorH(canvas: Canvas) {
+    private fun drawFrontierSectorHorizontal(canvas: Canvas) {
         val rect = Rect(
             (9 * width.toFloat() / 22).toInt(),
             (1 * height.toFloat() / 11).toInt(),
@@ -254,7 +254,7 @@ class NoteDeviationView @JvmOverloads constructor(
 
     }
 
-    private fun drawMarksH(canvas: Canvas) {
+    private fun drawMarksHorizontal(canvas: Canvas) {
         for (i in 0..9) {
             canvas.drawLine(
                 (2 + 2 * i) * width.toFloat() / 22,
@@ -320,10 +320,10 @@ class NoteDeviationView @JvmOverloads constructor(
            canvas.drawText(labels[i], 9.5f * width / 11, (1f + 2f * i) * height / 22, fontPaint)
     }
 
-    private fun drawTextH(canvas: Canvas) {
+    private fun drawTextHorizontal(canvas: Canvas) {
         fontPaint.textSize = height / 21f
-        for (i in labelsH.indices)
-            canvas.drawText(labelsH[i], (0.75f + 2f*i) * width / 22, 10f * height / 11, fontPaint)
+        for (i in labelsHorizontal.indices)
+            canvas.drawText(labelsHorizontal[i], (0.75f + 2f*i) * width / 22, 10f * height / 11, fontPaint)
     }
 
     private fun drawPointer(canvas: Canvas) {
@@ -336,7 +336,7 @@ class NoteDeviationView @JvmOverloads constructor(
         )
     }
 
-    private fun drawPointerH(canvas: Canvas) {
+    private fun drawPointerHorizontal(canvas: Canvas) {
         canvas.drawLine(
             pointerPosition * width,
             height.toFloat() / 11,
