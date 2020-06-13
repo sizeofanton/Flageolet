@@ -1,5 +1,6 @@
 package com.sizeofanton.flageolet.extensions
 
+import android.app.Activity
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
@@ -27,4 +28,15 @@ fun AppCompatActivity.playSound(resId: Int) {
             .build()
     )
     mediaPlayer.start()
+}
+
+fun Activity.playSound(resId: Int) {
+    val mediaPlayer = MediaPlayer.create(this, resId)
+    mediaPlayer.setAudioAttributes(
+        AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+    )
+    mediaPlayer.start()
+    while (mediaPlayer.isPlaying) { /* Wait for sound to finish */ }
 }

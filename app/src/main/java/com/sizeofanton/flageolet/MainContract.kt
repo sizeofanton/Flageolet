@@ -1,6 +1,5 @@
 package com.sizeofanton.flageolet
 
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 
 interface MainContract {
@@ -35,5 +34,4 @@ interface MainContract {
         fun setSystem(frequencies: DoubleArray, names: Array<String>)
         fun setCurrentString(string: Int)
     }
-
 }

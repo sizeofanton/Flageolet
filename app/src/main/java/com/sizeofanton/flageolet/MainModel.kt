@@ -4,20 +4,19 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import com.sizeofanton.flageolet.utils.*
+import java.util.*
+import kotlin.concurrent.fixedRateTimer
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
-import java.util.*
-import kotlin.concurrent.fixedRateTimer
-import kotlin.math.abs
 
 private const val FREQ_THRESHOLD = 60
 private const val AMP_THRESHOLD = 300
 private const val DECIBEL_THRESHOLD = -18
 
-class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Model, KoinComponent {
+class MainModel(private val viewModel: MainContract.ViewModel) : MainContract.Model, KoinComponent {
 
     private lateinit var audioRecord: AudioRecord
     private val audioCalculator: AudioCalculator by inject()
@@ -27,19 +26,17 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
         AudioFormat.CHANNEL_IN_MONO,
         AudioFormat.ENCODING_PCM_16BIT
     )
-    private val noteCalculator:NoteCalculator by inject()
+    private val noteCalculator: NoteCalculator by inject()
     private lateinit var recordTimer: Timer
 
     private val frequencies = GuitarFrequencies.frequencies[0]?.first!!
     private val names = GuitarFrequencies.frequencies[0]?.second!!
 
-    private var frequencies_specific
-            = GuitarFrequencies.frequencies[0]?.first!!
-
+    private var frequencies_specific =
+            GuitarFrequencies.frequencies[0]?.first!!
 
     private var workMode: WorkMode = WorkMode.ALL_NOTES
     private var currentString: Int = -1
-
 
     override fun startRecording(delay: Long) {
         Timber.d("Start recording...")
@@ -93,21 +90,19 @@ class MainModel(private val viewModel:MainContract.ViewModel): MainContract.Mode
                 if (db > DECIBEL_THRESHOLD && amp > AMP_THRESHOLD && freq > FREQ_THRESHOLD) {
                     viewModel.updateFrequency(freq)
                     viewModel.updateNote(note)
-                    noteCalculator.calculateDeviation(frequencies_specific[currentString-1], freq)
+                    noteCalculator.calculateDeviation(frequencies_specific[currentString - 1], freq)
                         .also {
                             viewModel.updatePosition(it)
                         }
                 }
             }
         }
-
-
     }
 
     private fun getInput(): Triple<Double, Int, Double> {
         var read = 0
-        val bytesBuffer = ByteArray(minSize){0}
-        val shortBuffer = ShortArray(minSize){0}
+        val bytesBuffer = ByteArray(minSize) { 0 }
+        val shortBuffer = ShortArray(minSize) { 0 }
 
         audioRecord.read(bytesBuffer, 0, minSize)
         read = audioRecord.read(shortBuffer, 0, minSize)

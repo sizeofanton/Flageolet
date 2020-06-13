@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val appModule = module {
     single { AudioCalculator() }
     single { PCMArrayConverter() }
-    single { (sampleRate: Double, readSize: Int) -> YINPitchDetector(sampleRate, readSize)}
+    single { (sampleRate: Double, readSize: Int) -> YINPitchDetector(sampleRate, readSize) }
     single { NoteCalculator() }
     single<MainContract.Model> { (vm: MainContract.ViewModel) -> MainModel(vm) }
     viewModel { MainViewModel() }

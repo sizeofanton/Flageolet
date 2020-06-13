@@ -1,6 +1,8 @@
-## ![](readme/logo.png)Flageolet
+## Flageolet
 
 A guitar tuner for Android. Frequency detection based on [this article.](http://audition.ens.fr/adc/pdf/2002_JASA_YIN.pdf)
+
+<img style="float: left; zoom: 50%;" src="readme/work.gif" />
 
 Work modes:
 

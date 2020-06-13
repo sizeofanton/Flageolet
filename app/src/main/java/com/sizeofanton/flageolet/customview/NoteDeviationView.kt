@@ -7,11 +7,11 @@ import android.view.View
 import com.sizeofanton.flageolet.R
 import java.lang.Exception
 
-
 class NoteDeviationView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttrs: Int = 0) : View(context, attrs, defStyleAttrs){
+    defStyleAttrs: Int = 0
+) : View(context, attrs, defStyleAttrs) {
 
     private var orientation: Int = 0
 
@@ -23,11 +23,8 @@ class NoteDeviationView @JvmOverloads constructor(
         }
     }
 
-
     private val labels = arrayOf("+50", "+40", "+30", "+20", "+10", "  0",
                                            "-10", "-20", "-30", "-40", "-50")
-    private val labelsHorizontal = arrayOf("-50", "-40", "-30", "-20", "-10", "  0",
-                                              "+10", "+20", "+30", "+40", "+50")
 
     private var primaryLineWidth = 20.0f
     private var secondaryLineWidth = 10.0f
@@ -91,13 +88,6 @@ class NoteDeviationView @JvmOverloads constructor(
     }
     fun getPosition() = pointerPositionValue
 
-
-
-    fun setPointerColor(alpha: Int, r: Int, g: Int, b: Int) {
-        pointerPaint.color = Color.argb(alpha, r, g, b)
-        invalidate()
-    }
-
     fun setPointerColor(color: Int) {
         pointerPaint.color = color
         invalidate()
@@ -157,7 +147,7 @@ class NoteDeviationView @JvmOverloads constructor(
 
     private fun drawCentralSector(canvas: Canvas) {
         canvas.drawLine(
-                width.toFloat()/11,
+                width.toFloat() / 11,
                 11 * height.toFloat() / 22,
                 9 * width.toFloat() / 11,
                 11 * height.toFloat() / 22,
@@ -199,21 +189,20 @@ class NoteDeviationView @JvmOverloads constructor(
         for (i in 0..9)
             canvas.drawLine(
                 width.toFloat() / 11,
-                    (2+2*i) * height.toFloat() / 22,
+                    (2 + 2 * i) * height.toFloat() / 22,
                 2 * width.toFloat() / 11,
-                    (2+2*i) * height.toFloat() / 22,
+                    (2 + 2 * i) * height.toFloat() / 22,
                 markPaint
         )
 
         for (i in 0..9)
             canvas.drawLine(
                     8 * width.toFloat() / 11,
-                    (2+2*i) * height.toFloat() / 22,
+                    (2 + 2 * i) * height.toFloat() / 22,
                     9 * width.toFloat() / 11,
-                    (2+2*i) * height.toFloat() / 22,
+                    (2 + 2 * i) * height.toFloat() / 22,
                     markPaint
             )
-
 
         for (i in 1..10)
             canvas.drawLine(
@@ -242,7 +231,6 @@ class NoteDeviationView @JvmOverloads constructor(
                     markPaint
             )
 
-
         for (i in 1..10)
             canvas.drawLine(
                     8.5f * width.toFloat() / 11,
@@ -251,7 +239,6 @@ class NoteDeviationView @JvmOverloads constructor(
                     (2f * i - 0.5f) * height.toFloat() / 22,
                     markPaint
             )
-
     }
 
     private fun drawMarksHorizontal(canvas: Canvas) {
@@ -322,8 +309,9 @@ class NoteDeviationView @JvmOverloads constructor(
 
     private fun drawTextHorizontal(canvas: Canvas) {
         fontPaint.textSize = height / 21f
-        for (i in labelsHorizontal.indices)
-            canvas.drawText(labelsHorizontal[i], (0.75f + 2f*i) * width / 22, 10f * height / 11, fontPaint)
+        val labels = this.labels.reversed()
+        for (i in labels.indices)
+            canvas.drawText(labels[i], (0.75f + 2f * i) * width / 22, 10f * height / 11, fontPaint)
     }
 
     private fun drawPointer(canvas: Canvas) {
@@ -353,6 +341,4 @@ class NoteDeviationView @JvmOverloads constructor(
         markPaint.strokeWidth = secondaryLineWidth
         pointerPaint.strokeWidth = primaryLineWidth
     }
-
-
 }

@@ -1,16 +1,15 @@
 package com.sizeofanton.flageolet
 
-
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.sizeofanton.flageolet.extensions.playSound
 import com.sizeofanton.flageolet.extensions.vibratePhone
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         wakeLock.release()
     }
 
-    private fun checkMicroPermission(): Boolean  =
+    private fun checkMicroPermission(): Boolean =
         checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
     private fun requestMicroPermission() {
@@ -65,8 +64,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty()
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     viewModel.startRecording()
                 } else {
                     finish()
@@ -74,7 +73,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             }
         }
     }
-
 
     private fun moveNoteView(position: Int) {
         noteDeviationView.setPointerVisibility(true)
@@ -121,7 +119,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val position = viewModel.getPosition()
 
         note.observe(this, Observer<String> { tvNote.text = it })
-        freq.observe(this, Observer<Double>{ tvFreq.text = getString(R.string.hz_string, it)/*"${String.format("%5.2f", it)} Hz"*/ })
+        freq.observe(this, Observer<Double> { tvFreq.text = getString(R.string.hz_string, it)/*"${String.format("%5.2f", it)} Hz"*/ })
         position.observe(this, Observer<Int> { moveNoteView(it) })
     }
 
@@ -182,6 +180,4 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             i
         )
     }
-
-
 }

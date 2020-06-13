@@ -6,8 +6,7 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-
-class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent  {
+class MainViewModel : ViewModel(), MainContract.ViewModel, KoinComponent {
 
     private val model: MainContract.Model by inject { parametersOf(this) }
     private val frequency: MutableLiveData<Double> = MutableLiveData()
@@ -42,7 +41,6 @@ class MainViewModel: ViewModel(), MainContract.ViewModel, KoinComponent  {
     override fun startRecording(delay: Long) {
         model.startRecording(delay)
     }
-
 
     override fun startRecording() {
         model.startRecording(0L)

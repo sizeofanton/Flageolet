@@ -20,21 +20,24 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.O_MR1])
-class MainActivityTestRobolectric: KoinTest {
+class MainActivityTestRobolectric : KoinTest {
 
     private lateinit var activity: MainActivity
 
-
     @Before
-    fun test_setUp() {
+    fun setUp() {
         activity = Robolectric.setupActivity(MainActivity::class.java)
     }
 
     @Test
     fun test_startUp() {
         val note = activity.findViewById<TextView>(R.id.tvNote)
-        val hz = activity.findViewById<TextView>(R.id.tvFreq)
         assertEquals("?", note.text.toString())
+    }
+
+    @Test
+    fun test_frequencyStartUp() {
+        val hz = activity.findViewById<TextView>(R.id.tvFreq)
         assertEquals("0 Hz", hz.text.toString())
     }
 
@@ -125,8 +128,7 @@ class MainActivityTestRobolectric: KoinTest {
     }
 
     @After
-    fun test_cleanUp(){
+    fun cleanUp() {
         stopKoin()
     }
-
 }

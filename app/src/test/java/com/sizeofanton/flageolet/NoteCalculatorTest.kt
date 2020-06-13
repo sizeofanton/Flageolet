@@ -3,10 +3,9 @@ package com.sizeofanton.flageolet
 import com.sizeofanton.flageolet.di.appModule
 import com.sizeofanton.flageolet.utils.GuitarFrequencies
 import com.sizeofanton.flageolet.utils.NoteCalculator
-import org.junit.Test
-
 import org.junit.Assert.*
 import org.junit.Rule
+import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject

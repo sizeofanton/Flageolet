@@ -24,5 +24,4 @@ class NoteCalculator {
         val next = if (sign) requiredHz * NOTE_STEP else requiredHz / NOTE_STEP
         return (abs(currentHz - requiredHz) * 100 / abs(requiredHz - next)).toInt() * if (sign) 1 else -1
     }
-
 }
