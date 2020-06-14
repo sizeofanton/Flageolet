@@ -1,4 +1,5 @@
 ## Flageolet
+[![License: GPL](https://img.shields.io/badge/License-GPL-blue)](https://gnu.org/licenses/gpl-3.0.txt) [![Build Status](https://travis-ci.com/sizeofanton/Flageolet.svg?token=WeNq9MDLEexyG95YjVgp&branch=master)](https://travis-ci.com/sizeofanton/Flageolet)
 
 A guitar tuner for Android. Frequency detection based on [this article.](http://audition.ens.fr/adc/pdf/2002_JASA_YIN.pdf)
 
