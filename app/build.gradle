@@ -88,4 +88,7 @@ dependencies {
 
     // Robolectric
     testImplementation 'org.robolectric:robolectric:4.3'
+
+    // DeviationView
+    implementation 'com.github.sizeofanton:DeviationView:1.0'
 }

@@ -15,5 +15,18 @@
 
     <string name="hz_string">%1$5.2f Hz</string>
 
+    <string-array name="labels">
+        <item>+50</item>
+        <item>+40</item>
+        <item>+30</item>
+        <item>+20</item>
+        <item>+10</item>
+        <item>  0</item>
+        <item>-10</item>
+        <item>-20</item>
+        <item>-30</item>
+        <item>-40</item>
+        <item>-50</item>
+    </string-array>
 
 </resources>

@@ -6,7 +6,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
-import com.sizeofanton.flageolet.customview.NoteDeviationView
+import com.sizeofanton.flageolet.customview.DeviationView
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -43,26 +43,26 @@ class MainActivityTestRobolectric : KoinTest {
 
     @Test
     fun test_pointerInvisible() {
-        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        val noteDeviationView = activity.findViewById<DeviationView>(R.id.noteDeviationView)
         assertEquals(noteDeviationView.isPointerVisible(), false)
     }
 
     @Test
     fun test_pointerVisible() {
-        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        val noteDeviationView = activity.findViewById<DeviationView>(R.id.noteDeviationView)
         noteDeviationView.setPointerVisibility(true)
         assertEquals(noteDeviationView.isPointerVisible(), true)
     }
 
     @Test
     fun test_basePosition() {
-        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        val noteDeviationView = activity.findViewById<DeviationView>(R.id.noteDeviationView)
         assertEquals(noteDeviationView.getPosition(), 0)
     }
 
     @Test
     fun test_movePosition() {
-        val noteDeviationView = activity.findViewById<NoteDeviationView>(R.id.noteDeviationView)
+        val noteDeviationView = activity.findViewById<DeviationView>(R.id.noteDeviationView)
         noteDeviationView.setPosition(20)
         assertEquals(20, noteDeviationView.getPosition())
     }

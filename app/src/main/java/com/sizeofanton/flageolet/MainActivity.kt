@@ -75,21 +75,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun moveNoteView(position: Int) {
-        noteDeviationView.setPointerVisibility(true)
+        noteDeviationView.pointerVisible = true
         when (position) {
             in 50..Int.MAX_VALUE -> {
-                noteDeviationView.setPosition(50)
+                noteDeviationView.pointerPosition = 50
                 noteDeviationView.setPointerColor(getColor(R.color.pointerBad))
             }
             in Int.MIN_VALUE..-50 -> {
-                noteDeviationView.setPosition(-50)
+                noteDeviationView.pointerPosition = 50
                 noteDeviationView.setPointerColor(getColor(R.color.pointerBad))
             }
             in -1..1 -> {
                 viewModel.stopRecording()
                 vibratePhone()
                 playSound(R.raw.success)
-                noteDeviationView.setPosition(position)
+                noteDeviationView.pointerPosition = 0
                 noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
                 tvNote.setTextColor(getColor(R.color.pointerGood))
                 tvFreq.setTextColor(getColor(R.color.pointerGood))
@@ -100,14 +100,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 viewModel.startRecording(START_RECORDING_DELAY)
             }
             else -> {
-                noteDeviationView.setPosition(position)
+                noteDeviationView.pointerPosition = position
                 noteDeviationView.setPointerColor(getColor(R.color.pointerNeutral))
             }
         }
     }
 
     private fun initUI() {
-        noteDeviationView.setPointerVisibility(false)
+        noteDeviationView.pointerVisible = false
         initLiveDataObservers()
         initSpinner()
         initRadioGroupNotes()

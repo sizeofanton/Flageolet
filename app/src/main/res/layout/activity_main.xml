@@ -9,13 +9,15 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
-    <com.sizeofanton.flageolet.customview.NoteDeviationView
+    <com.sizeofanton.deviationview.DeviationView
         android:id="@+id/noteDeviationView"
-        android:layout_width="217dp"
-        android:layout_height="489dp"
+        android:layout_width="252dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/rgStrings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.484" />
 
     <TextView
         android:id="@+id/tvNote"
@@ -24,11 +26,12 @@
         android:fontFamily="sans-serif-thin"
         android:text="?"
         android:textColor="#FFFFFF"
-        android:textSize="72sp"
+        android:textSize="52sp"
         app:layout_constraintBottom_toTopOf="@+id/rgStrings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/noteDeviationView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.492" />
 
     <Spinner
         android:id="@+id/spinnerNotes"
