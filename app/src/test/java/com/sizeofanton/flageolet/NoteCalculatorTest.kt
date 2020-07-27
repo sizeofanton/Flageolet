@@ -1,7 +1,7 @@
 package com.sizeofanton.flageolet
 
 import com.sizeofanton.flageolet.di.appModule
-import com.sizeofanton.flageolet.utils.GuitarFrequencies
+import com.sizeofanton.flageolet.data.local.GuitarFrequencies
 import com.sizeofanton.flageolet.utils.NoteCalculator
 import org.junit.Assert.*
 import org.junit.Rule

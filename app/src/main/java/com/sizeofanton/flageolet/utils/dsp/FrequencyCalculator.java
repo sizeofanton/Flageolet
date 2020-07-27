@@ -1,4 +1,4 @@
-package com.sizeofanton.flageolet.utils;
+package com.sizeofanton.flageolet.utils.dsp;
 
 import java.util.Arrays;
 

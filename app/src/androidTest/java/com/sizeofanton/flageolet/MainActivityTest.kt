@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.sizeofanton.flageolet.ui.MainActivity
 import org.hamcrest.Matchers.*
 import org.junit.Rule
 import org.junit.Test

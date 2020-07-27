@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#222121"
     android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <com.sizeofanton.deviationview.DeviationView
         android:id="@+id/noteDeviationView"
