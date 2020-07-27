@@ -1,4 +1,4 @@
-package com.sizeofanton.flageolet.utils
+package com.sizeofanton.flageolet.data.local
 
 object GuitarFrequencies {
     private val FREQUENCIES = doubleArrayOf(
@@ -56,14 +56,41 @@ object GuitarFrequencies {
 
     val frequencies: HashMap<Int, Pair<DoubleArray, Array<String>>> = HashMap()
     init {
-        frequencies[0] = Pair(FREQUENCIES, NAMES)
-        frequencies[1] = Pair(FREQUENCIES_EADGBE, NAMES_EADGBE)
-        frequencies[2] = Pair(FREQUENCIES_EbAbDbGbBbEb, NAMES_EbAbDbGbBbEb)
-        frequencies[3] = Pair(FREQUENCIES_DAFCGD, NAMES_DAFCGD)
-        frequencies[4] = Pair(FREQUENCIES_DbAbEBGbDb, NAMES_DbAbEBGbDb)
-        frequencies[5] = Pair(FREQUENCIES_CGEbBbFC, NAMES_CGEbBbFC)
-        frequencies[6] = Pair(FREQUENCIES_EBGDAD, NAMES_EBGDAD)
-        frequencies[7] = Pair(FREQUENCIES_DsAsFsCsBsCs, NAMES_DsAsFsCsBsCs)
-        frequencies[8] = Pair(FREQUENCIES_DAFCGC, NAMES_DAFCGC)
+        frequencies[0] = Pair(
+            FREQUENCIES,
+            NAMES
+        )
+        frequencies[1] = Pair(
+            FREQUENCIES_EADGBE,
+            NAMES_EADGBE
+        )
+        frequencies[2] = Pair(
+            FREQUENCIES_EbAbDbGbBbEb,
+            NAMES_EbAbDbGbBbEb
+        )
+        frequencies[3] = Pair(
+            FREQUENCIES_DAFCGD,
+            NAMES_DAFCGD
+        )
+        frequencies[4] = Pair(
+            FREQUENCIES_DbAbEBGbDb,
+            NAMES_DbAbEBGbDb
+        )
+        frequencies[5] = Pair(
+            FREQUENCIES_CGEbBbFC,
+            NAMES_CGEbBbFC
+        )
+        frequencies[6] = Pair(
+            FREQUENCIES_EBGDAD,
+            NAMES_EBGDAD
+        )
+        frequencies[7] = Pair(
+            FREQUENCIES_DsAsFsCsBsCs,
+            NAMES_DsAsFsCsBsCs
+        )
+        frequencies[8] = Pair(
+            FREQUENCIES_DAFCGC,
+            NAMES_DAFCGC
+        )
     }
 }

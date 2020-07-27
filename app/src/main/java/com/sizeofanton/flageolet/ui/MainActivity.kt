@@ -1,4 +1,4 @@
-package com.sizeofanton.flageolet
+package com.sizeofanton.flageolet.ui
 
 import android.Manifest
 import android.content.Context
@@ -11,16 +11,20 @@ import android.view.WindowManager
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.sizeofanton.flageolet.extensions.playSound
-import com.sizeofanton.flageolet.extensions.vibratePhone
-import com.sizeofanton.flageolet.utils.GuitarFrequencies
+import com.sizeofanton.flageolet.contract.MainContract
+import com.sizeofanton.flageolet.data.model.MainModel
+import com.sizeofanton.flageolet.R
+import com.sizeofanton.flageolet.utils.ext.playSound
+import com.sizeofanton.flageolet.utils.ext.vibratePhone
+import com.sizeofanton.flageolet.data.local.GuitarFrequencies
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val PERMISSION_CODE = 101
-private const val START_RECORDING_DELAY = 1500L
+private const val START_RECORDING_DELAY = 1200L
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity(),
+    MainContract.View {
 
     private val viewModel: MainViewModel by viewModel()
     private val handler = Handler()
@@ -34,14 +38,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         if (!checkMicroPermission()) requestMicroPermission()
-        else viewModel.startRecording()
+        else viewModel.startRecording(0L)
 
         initUI()
+        if (savedInstanceState != null) restoreState(savedInstanceState)
     }
 
     override fun onResume() {
         super.onResume()
-        wakeLock.acquire()
+        wakeLock.acquire(20)
     }
 
     override fun onPause() {
@@ -53,7 +58,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
     private fun requestMicroPermission() {
-        requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), PERMISSION_CODE)
+        requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),
+            PERMISSION_CODE
+        )
     }
 
     override fun onRequestPermissionsResult(
@@ -66,7 +73,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    viewModel.startRecording()
+                    viewModel.startRecording(0L)
                 } else {
                     finish()
                 }
@@ -103,6 +110,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 noteDeviationView.pointerPosition = position
                 noteDeviationView.setPointerColor(getColor(R.color.pointerNeutral))
             }
+
+
         }
     }
 
@@ -179,5 +188,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             GuitarFrequencies.frequencies[spinnerNotes.selectedItemPosition]!!.second,
             i
         )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("Note", tvNote.text.toString())
+        outState.putString("Freq", tvFreq.text.toString())
+        super.onSaveInstanceState(outState)
+    }
+
+    private fun restoreState(savedInstanceState: Bundle) {
+        val note = savedInstanceState.getString("Note", "?")
+        val freq = savedInstanceState.getString("Freq", "0 Hz")
+        tvNote.text = note
+        tvFreq.text = freq
     }
 }

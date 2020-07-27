@@ -1,17 +1,14 @@
-package com.sizeofanton.flageolet
+package com.sizeofanton.flageolet.contract
 
 import androidx.lifecycle.LiveData
+import com.sizeofanton.flageolet.data.model.MainModel
+import com.sizeofanton.flageolet.data.model.MicData
+import io.reactivex.Observable
 
 interface MainContract {
     interface View
 
     interface ViewModel {
-        fun updateFrequency(frequency: Double)
-        fun updateAmplitude(amplitude: Int)
-        fun updateDecibel(decibel: Double)
-        fun updateNote(note: String)
-        fun updatePosition(position: Int)
-        fun startRecording()
         fun startRecording(delay: Long)
         fun stopRecording()
         fun getFrequency(): LiveData<Double>
@@ -33,5 +30,6 @@ interface MainContract {
         fun setWorkMode(mode: MainModel.WorkMode)
         fun setSystem(frequencies: DoubleArray, names: Array<String>)
         fun setCurrentString(string: Int)
+        fun getProducer(): Observable<MicData>
     }
 }

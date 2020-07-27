@@ -1,52 +1,40 @@
-package com.sizeofanton.flageolet
+package com.sizeofanton.flageolet.ui
 
 import androidx.lifecycle.*
+import com.sizeofanton.flageolet.contract.MainContract
+import com.sizeofanton.flageolet.data.model.MainModel
+import com.sizeofanton.flageolet.data.model.MicData
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class MainViewModel : ViewModel(), MainContract.ViewModel, KoinComponent {
+class MainViewModel : ViewModel(),
+    MainContract.ViewModel, KoinComponent {
 
     private val model: MainContract.Model by inject { parametersOf(this) }
+    private var subscription: Disposable? = null
     private val frequency: MutableLiveData<Double> = MutableLiveData()
     private val amplitude: MutableLiveData<Int> = MutableLiveData()
     private val decibel: MutableLiveData<Double> = MutableLiveData()
     private val note: MutableLiveData<String> = MutableLiveData()
     private val position: MutableLiveData<Int> = MutableLiveData()
 
-    override fun updateFrequency(frequency: Double) {
-        Timber.d("Updated frequency $frequency")
-        this.frequency.postValue(frequency)
-    }
-
-    override fun updateAmplitude(amplitude: Int) {
-        this.amplitude.postValue(amplitude)
-    }
-
-    override fun updateDecibel(decibel: Double) {
-        this.decibel.postValue(decibel)
-    }
-
-    override fun updateNote(note: String) {
-        Timber.d("Updated note $note")
-        this.note.postValue(note)
-    }
-
-    override fun updatePosition(position: Int) {
-        Timber.d("Updated position $position")
-        this.position.postValue(position)
-    }
-
     override fun startRecording(delay: Long) {
         model.startRecording(delay)
-    }
-
-    override fun startRecording() {
-        model.startRecording(0L)
+        subscription = model.getProducer().subscribe { data ->
+            this@MainViewModel.note.postValue(data.note)
+            this@MainViewModel.frequency.postValue(data.freq)
+            this@MainViewModel.amplitude.postValue(data.amp)
+            this@MainViewModel.decibel.postValue(data.db)
+            this@MainViewModel.position.postValue(data.position)
+        }
     }
 
     override fun stopRecording() {
+        subscription?.dispose()
         model.stopRecording()
     }
 

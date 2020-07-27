@@ -1,4 +1,4 @@
-package com.sizeofanton.flageolet.extensions
+package com.sizeofanton.flageolet.utils.ext
 
 import android.app.Activity
 import android.content.Context
