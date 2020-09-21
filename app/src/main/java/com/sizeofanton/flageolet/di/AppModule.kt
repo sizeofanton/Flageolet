@@ -15,10 +15,6 @@ val appModule = module {
     single { PCMArrayConverter() }
     single { (sampleRate: Float, readSize: Int) -> FastYin(sampleRate, readSize) }
     single { NoteCalculator() }
-    single<MainContract.Model> { (vm: MainContract.ViewModel) ->
-        MainModel(
-            vm
-        )
-    }
+    single<MainContract.Model> { MainModel() }
     viewModel { MainViewModel() }
 }

@@ -14,7 +14,7 @@ import timber.log.Timber
 class MainViewModel : ViewModel(),
     MainContract.ViewModel, KoinComponent {
 
-    private val model: MainContract.Model by inject { parametersOf(this) }
+    private val model: MainContract.Model by inject()
     private var subscription: Disposable? = null
     private val frequency: MutableLiveData<Double> = MutableLiveData()
     private val amplitude: MutableLiveData<Int> = MutableLiveData()

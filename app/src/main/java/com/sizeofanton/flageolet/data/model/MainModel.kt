@@ -33,7 +33,7 @@ data class MicData(
     val db: Double,
     val position: Int
 )
-open class MainModel(private val viewModel: MainContract.ViewModel) : MainContract.Model, KoinComponent {
+open class MainModel : MainContract.Model, KoinComponent {
 
     private lateinit var audioRecord: AudioRecord
     private val audioCalculator: AudioCalculator by inject()

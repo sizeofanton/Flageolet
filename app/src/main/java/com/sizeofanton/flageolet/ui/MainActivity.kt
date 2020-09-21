@@ -23,8 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 private const val PERMISSION_CODE = 101
 private const val START_RECORDING_DELAY = 1200L
 
-class MainActivity : AppCompatActivity(),
-    MainContract.View {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val viewModel: MainViewModel by viewModel()
     private val handler = Handler()
@@ -32,6 +31,7 @@ class MainActivity : AppCompatActivity(),
         (getSystemService(Context.POWER_SERVICE) as PowerManager)
             .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Flageolet::RecordingWakeLock")
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(),
             in -1..1 -> {
                 viewModel.stopRecording()
                 vibratePhone()
-                playSound(R.raw.success)
+                //playSound(R.raw.success)
                 noteDeviationView.pointerPosition = 0
                 noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
                 tvNote.setTextColor(getColor(R.color.pointerGood))
