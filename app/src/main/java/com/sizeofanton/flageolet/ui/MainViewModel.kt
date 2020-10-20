@@ -1,15 +1,13 @@
 package com.sizeofanton.flageolet.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.sizeofanton.flageolet.contract.MainContract
 import com.sizeofanton.flageolet.data.model.MainModel
-import com.sizeofanton.flageolet.data.model.MicData
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 
 class MainViewModel : ViewModel(),
     MainContract.ViewModel, KoinComponent {

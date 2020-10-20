@@ -1,22 +1,21 @@
 package com.sizeofanton.flageolet.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.os.PowerManager
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.sizeofanton.flageolet.contract.MainContract
-import com.sizeofanton.flageolet.data.model.MainModel
 import com.sizeofanton.flageolet.R
-import com.sizeofanton.flageolet.utils.ext.playSound
-import com.sizeofanton.flageolet.utils.ext.vibratePhone
+import com.sizeofanton.flageolet.contract.MainContract
 import com.sizeofanton.flageolet.data.local.GuitarFrequencies
+import com.sizeofanton.flageolet.data.model.MainModel
+import com.sizeofanton.flageolet.utils.ext.vibratePhone
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -27,10 +26,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val viewModel: MainViewModel by viewModel()
     private val handler = Handler()
-    private val wakeLock by lazy {
-        (getSystemService(Context.POWER_SERVICE) as PowerManager)
-            .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Flageolet::RecordingWakeLock")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -45,21 +40,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         if (savedInstanceState != null) restoreState(savedInstanceState)
     }
 
-    override fun onResume() {
-        super.onResume()
-        wakeLock.acquire(20)
-    }
 
-    override fun onPause() {
-        super.onPause()
-        wakeLock.release()
+    private fun checkMicroPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
     }
-
-    private fun checkMicroPermission(): Boolean =
-        checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
     private fun requestMicroPermission() {
-        requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
             PERMISSION_CODE
         )
     }
@@ -87,29 +79,29 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         when (position) {
             in 50..Int.MAX_VALUE -> {
                 noteDeviationView.pointerPosition = 50
-                noteDeviationView.setPointerColor(getColor(R.color.pointerBad))
+                noteDeviationView.setPointerColor(getColorCompat(R.color.pointerBad))
             }
             in Int.MIN_VALUE..-50 -> {
                 noteDeviationView.pointerPosition = 50
-                noteDeviationView.setPointerColor(getColor(R.color.pointerBad))
+                noteDeviationView.setPointerColor(getColorCompat(R.color.pointerBad))
             }
             in -1..1 -> {
                 viewModel.stopRecording()
                 vibratePhone()
                 //playSound(R.raw.success)
                 noteDeviationView.pointerPosition = 0
-                noteDeviationView.setPointerColor(getColor(R.color.pointerGood))
-                tvNote.setTextColor(getColor(R.color.pointerGood))
-                tvFreq.setTextColor(getColor(R.color.pointerGood))
+                noteDeviationView.setPointerColor(getColorCompat(R.color.pointerGood))
+                tvNote.setTextColor(getColorCompat(R.color.pointerGood))
+                tvFreq.setTextColor(getColorCompat(R.color.pointerGood))
                 handler.postDelayed({
-                    tvNote.setTextColor(getColor(R.color.colorAccent))
-                    tvFreq.setTextColor(getColor(R.color.colorAccent))
+                    tvNote.setTextColor(getColorCompat(R.color.colorAccent))
+                    tvFreq.setTextColor(getColorCompat(R.color.colorAccent))
                 }, START_RECORDING_DELAY)
                 viewModel.startRecording(START_RECORDING_DELAY)
             }
             else -> {
                 noteDeviationView.pointerPosition = position
-                noteDeviationView.setPointerColor(getColor(R.color.pointerNeutral))
+                noteDeviationView.setPointerColor(getColorCompat(R.color.pointerNeutral))
             }
 
 
@@ -203,4 +195,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         tvNote.text = note
         tvFreq.text = freq
     }
+
+    private fun getColorCompat(id: Int): Int = ContextCompat.getColor(this, id)
 }
