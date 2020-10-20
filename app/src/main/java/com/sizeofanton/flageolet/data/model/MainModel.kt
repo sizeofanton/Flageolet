@@ -3,14 +3,17 @@ package com.sizeofanton.flageolet.data.model
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import be.tarsos.dsp.AudioEvent
+import be.tarsos.dsp.filters.BandPass
 import be.tarsos.dsp.pitch.FastYin
 import com.sizeofanton.flageolet.contract.MainContract
 import com.sizeofanton.flageolet.data.local.GuitarFrequencies
-import com.sizeofanton.flageolet.utils.dsp.AudioCalculator
 import com.sizeofanton.flageolet.utils.NoteCalculator
 import com.sizeofanton.flageolet.utils.PCMArrayConverter
-import io.reactivex.*
+import com.sizeofanton.flageolet.utils.dsp.AudioCalculator
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.koin.core.KoinComponent
@@ -21,10 +24,12 @@ import timber.log.Timber
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-private const val FREQ_THRESHOLD_BOTTOM = 60
-private const val FREQ_THRESHOLD_UPPER = 1000
-private const val AMP_THRESHOLD = 1200
-private const val DECIBEL_THRESHOLD = -18
+private const val FREQ_THRESHOLD = 55
+private const val AMP_THRESHOLD = 500
+private const val DECIBEL_THRESHOLD = -25
+
+private const val BANDPASS_CENTRE_FREQ = 530.0f
+private const val BANDPASS_WIDTH = 470.0f
 
 data class MicData(
     val note: String,
@@ -51,6 +56,9 @@ open class MainModel : MainContract.Model, KoinComponent {
     private var currentString: Int = -1
     private val converter = get<PCMArrayConverter>()
     private val detector = get<FastYin>() { parametersOf(sampleRate.toDouble(), minSize) }
+    private val bandPassFilter: BandPass
+            = get() {parametersOf(BANDPASS_CENTRE_FREQ, BANDPASS_WIDTH, sampleRate.toFloat())}
+    private val audioEvent:AudioEvent = get() { parametersOf(sampleRate.toFloat())}
 
     private lateinit var micDataProducer: Observable<MicData>
 
@@ -80,7 +88,7 @@ open class MainModel : MainContract.Model, KoinComponent {
         })
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .filter {it.freq > FREQ_THRESHOLD_BOTTOM && it.freq < FREQ_THRESHOLD_UPPER}
+            .filter {it.freq > FREQ_THRESHOLD}
             .filter {it.amp > AMP_THRESHOLD}
             .filter {it.db > DECIBEL_THRESHOLD}
         
@@ -131,8 +139,11 @@ open class MainModel : MainContract.Model, KoinComponent {
         read = audioRecord.read(shortBuffer, 0, minSize)
         return if (read > 0) {
             audioCalculator.setBytes(bytesBuffer)
-            val convertedArray = FloatArray(minSize)
+            var convertedArray = FloatArray(minSize)
             converter.convert(shortBuffer, convertedArray)
+            audioEvent.floatBuffer = convertedArray
+            bandPassFilter.process(audioEvent)
+            convertedArray = audioEvent.floatBuffer
             val freq = detector.getPitch(convertedArray)
                 .pitch
                 .toDouble()

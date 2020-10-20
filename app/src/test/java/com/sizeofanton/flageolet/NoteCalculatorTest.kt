@@ -1,9 +1,9 @@
 package com.sizeofanton.flageolet
 
-import com.sizeofanton.flageolet.di.appModule
 import com.sizeofanton.flageolet.data.local.GuitarFrequencies
+import com.sizeofanton.flageolet.di.appModule
 import com.sizeofanton.flageolet.utils.NoteCalculator
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
