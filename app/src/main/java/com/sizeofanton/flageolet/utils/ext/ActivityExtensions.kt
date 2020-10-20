@@ -19,24 +19,3 @@ fun AppCompatActivity.vibratePhone() {
     else
         vibrator.vibrate(200)
 }
-
-fun AppCompatActivity.playSound(resId: Int) {
-    val mediaPlayer = MediaPlayer.create(this, resId)
-    mediaPlayer.setAudioAttributes(
-        AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-            .build()
-    )
-    mediaPlayer.start()
-}
-
-fun Activity.playSound(resId: Int) {
-    val mediaPlayer = MediaPlayer.create(this, resId)
-    mediaPlayer.setAudioAttributes(
-        AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-            .build()
-    )
-    mediaPlayer.start()
-    while (mediaPlayer.isPlaying) { /* Wait for sound to finish */ }
-}
